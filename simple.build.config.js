@@ -19,7 +19,7 @@ module.exports = {
     assets: {
       // the urlLoaderQuery used in buildtool/webpack.base.config.js <url-loader> config node.
       urlLoaderQuery: {
-        context: 'projects/${projectName}/stylesheets',
+        context: '${projectName}/stylesheets',
         name: '${projectName}/[path][name].[ext]'
       },
       dev: 'http://localhost:3000/public/',
