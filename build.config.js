@@ -27,16 +27,20 @@ module.exports = {
     }
   },
   projects: {
-    // ${projectName}, project layers
+    // ${projectName}, project layers, Note for webpack optimze suggestion,
+    // if we have some submodule in projecet (multi) page, we need to attach submodule
+    // into this project as multi entry points.
     web: {
-      // ${subProjectName}, it contains multi module in business domain.
+       // the project meta config.
+      _metaInfo: {
+        version: ''
+      },
       home: {
         // server rendering url matching.
         match: /^\/$/,
         // entry point, must be string.
         entry: './projects/web/app/home/index.js',
         routes: './projects/web/app/home/routes.js',
-        version: '',
         jsBundles: ['browser-polyfill.js', 'reactkits.js', 'common.js', 'web/home/bundle.js${version}'],
         cssBundles: ['web/home/bundle.css${version}']
       },
@@ -44,7 +48,6 @@ module.exports = {
         match: /^\/(c|catalog)\/?/,
         entry: './projects/web/app/catalog/index.js',
         routes: './projects/web/app/catalog/routes.js',
-        version: '',
         jsBundles: ['browser-polyfill.js', 'reactkits.js', 'common.js', 'web/catalog/bundle.js${version}'],
         cssBundles: ['web/catalog/bundle.css${version}']
       },
@@ -52,7 +55,6 @@ module.exports = {
         match: /^\/(p|product)\/?/,
         entry: './projects/web/app/product/index.js',
         routes: './projects/web/app/product/routes.js',
-        version: '',
         jsBundles: ['browser-polyfill.js', 'reactkits.js', 'common.js', 'web/product/bundle.js${version}'],
         cssBundles: ['web/product/bundle.css${version}']
       },
@@ -60,7 +62,6 @@ module.exports = {
         match: /^\/user\/?/,
         entry: './projects/web/app/user/index.js',
         routes: './projects/web/app/user/routes.js',
-        version: '',
         jsBundles: ['browser-polyfill.js', 'reactkits.js', 'common.js', 'web/user/bundle.js${version}'],
         cssBundles: ['web/user/bundle.css${version}']
       }
