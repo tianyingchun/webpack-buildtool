@@ -41,28 +41,28 @@ module.exports = {
         // entry point, must be string.
         entry: './projects/web/app/home/index.js',
         routes: './projects/web/app/home/routes.js',
-        jsBundles: ['browser-polyfill.js', 'reactkits.js', 'common.js', 'web/home/bundle.js${version}'],
+        jsBundles: ['browser-polyfill.js', 'web/reactlib.js', 'web/common.js', 'web/home/bundle.js${version}'],
         cssBundles: ['web/home/bundle.css${version}']
       },
       catalog: {
         match: /^\/(c|catalog)\/?/,
         entry: './projects/web/app/catalog/index.js',
         routes: './projects/web/app/catalog/routes.js',
-        jsBundles: ['browser-polyfill.js', 'reactkits.js', 'common.js', 'web/catalog/bundle.js${version}'],
+        jsBundles: ['browser-polyfill.js', 'web/reactlib.js', 'web/common.js', 'web/catalog/bundle.js${version}'],
         cssBundles: ['web/catalog/bundle.css${version}']
       },
       product: {
         match: /^\/(p|product)\/?/,
         entry: './projects/web/app/product/index.js',
         routes: './projects/web/app/product/routes.js',
-        jsBundles: ['browser-polyfill.js', 'reactkits.js', 'common.js', 'web/product/bundle.js${version}'],
+        jsBundles: ['browser-polyfill.js', 'web/reactlib.js', 'web/common.js', 'web/product/bundle.js${version}'],
         cssBundles: ['web/product/bundle.css${version}']
       },
       user: {
         match: /^\/user\/?/,
         entry: './projects/web/app/user/index.js',
         routes: './projects/web/app/user/routes.js',
-        jsBundles: ['browser-polyfill.js', 'reactkits.js', 'common.js', 'web/user/bundle.js${version}'],
+        jsBundles: ['browser-polyfill.js', 'web/reactkits.js', 'web/common.js', 'web/user/bundle.js${version}'],
         cssBundles: ['web/user/bundle.css${version}']
       }
     },
