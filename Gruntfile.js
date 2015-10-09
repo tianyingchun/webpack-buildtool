@@ -7,21 +7,20 @@ module.exports = function (grunt) {
       options: {
         configFile: '.eslintrc'
       },
-      react: [
-        './workspace/**/*{.jsx,.js}'
+      jquery: [
+        './projects/**/*.js'
       ]
     },
     nodemon: {
-      isomorphic: {
-        script: './isomorphic',
+      server: {
+        script: './bin/simple',
         options: {
-          nodeArgs: [ /*'--debug' */],
+          nodeArgs: [ /*'--debug' */ ],
           ignore: ['node_modules/**'],
           env: {
-            PORT: '2000',
-            // for development, isomorphic server render react
+            PORT: '4001',
+            // for development, isomorphic server rendering
             NODE_ENV: '',
-            DEBUG: 'iso:*,',
             DEBUG_COLORS: true
           },
           ext: 'js,jsx,html,ejs'
@@ -33,6 +32,13 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
   // Load customized webpack build infrastructure.
+  // useage:
+  //  grunt {hot:projectName}
+  //  grunt dev-build
+  //  grunt prod-build
+  // ---------------------------------------------//
   require('./buildtool')(grunt);
+
+  grunt.registerTask('server', ['nodemon:server']);
 
 };
