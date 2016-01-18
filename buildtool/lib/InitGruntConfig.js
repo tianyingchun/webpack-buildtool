@@ -9,7 +9,18 @@ var default_config = projectInfo.config;
 
 // Reset the webpack build configuration.
 var resetWebpackConfig = function (grunt, webpack, projectName, projectMetaInfo) {
-
+  // we can use project level _metaInfo to override default projectName
+  // e.g.
+  // projects: {
+  // the app name is app
+  // app: {
+  //   _metaInfo: {
+  //     version: '?20151001',
+  //     // default projectName is `app`, we can override projectName via _metaInfo.projectName
+  //     projectName: '/baitiao/touch'
+  //   },
+  //   ....
+  var overrideProjectName = projectMetaInfo.projectName;
   var oExtractTextPlugin = _.find(webpack.plugins, function (item) {
     return 'ExtractTextPlugin' === item.constructor.name;
   });
@@ -20,7 +31,7 @@ var resetWebpackConfig = function (grunt, webpack, projectName, projectMetaInfo)
 
   _.each(oCommonsChunkPlugins, function (chunkItem) {
     chunkItem.filenameTemplate = _.template(chunkItem.filenameTemplate)({
-      projectName: projectName
+      projectName: overrideProjectName || projectName
     });
   });
 
@@ -31,7 +42,7 @@ var resetWebpackConfig = function (grunt, webpack, projectName, projectMetaInfo)
   // Set dist location for transfer url resources.
   _.extend(oModuleUrlLoader.query, _.mapValues(default_config.assets.urlLoaderQuery, function (val) {
     return _.template(val)({
-      projectName: projectName
+      projectName: overrideProjectName || projectName
     });
   }));
 
@@ -42,7 +53,7 @@ var resetWebpackConfig = function (grunt, webpack, projectName, projectMetaInfo)
   // filename: '${projectName}/${subModuleName}/${version}/bundle.js'
 
   var cssBundlePath = path.normalize(_.template(oExtractTextPlugin.filename)({
-    projectName: projectName,
+    projectName: overrideProjectName || projectName,
     version: projectMetaInfo.version || ''
   }));
 
@@ -51,7 +62,7 @@ var resetWebpackConfig = function (grunt, webpack, projectName, projectMetaInfo)
 
   oExtractTextPlugin.filename = cssBundlePath;
   var jsBundlePath = path.normalize(_.template(webpack.output.filename)({
-    projectName: projectName,
+    projectName: overrideProjectName || projectName,
     version: projectMetaInfo.version || ''
   }));
 
@@ -75,7 +86,7 @@ var getWebpackConfig = function (grunt, mode, projects) {
     var project = _.clone(projects[projectName]);
 
     // get project meta config.
-    var projectMetaInfo = project._metaInfo;
+    var projectMetaInfo = project._metaInfo || {};
     delete project._metaInfo;
 
     // create build task config 'project.subProject'.
@@ -84,7 +95,7 @@ var getWebpackConfig = function (grunt, mode, projects) {
       // current task.
       var subProject = project[subProjectName];
       if (subProject._metaInfo) {
-        projectMetaInfo = subProject._metaInfo;
+        projectMetaInfo =  _.extend(projectMetaInfo, subProject._metaInfo);
         delete subProject._metaInfo;
       }
       switch (mode) {
@@ -141,7 +152,7 @@ var getHotWebpackConfig = function (grunt, mode, projects) {
     var project = projects[projectName];
 
     // get project meta config.
-    var projectMetaInfo = project._metaInfo;
+    var projectMetaInfo = project._metaInfo || {};
     delete project._metaInfo;
 
     var webpack = webpackHotConfig();
