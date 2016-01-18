@@ -33,7 +33,9 @@ module.exports = {
     web: {
        // the project meta config.
       _metaInfo: {
-        version: ''
+        version: '',
+        // default projectName is `app`, we can override projectName via _metaInfo.projectName without prefix '/'
+       projectName: 'myapp/touch'
       },
       home: {
         // server rendering url matching.
@@ -41,29 +43,29 @@ module.exports = {
         // entry point, must be string.
         entry: './projects/web/app/home/index.js',
         routes: './projects/web/app/home/routes.js',
-        jsBundles: ['browser-polyfill.js', 'web/reactlib.js', 'web/common.js', 'web/home/bundle.js${version}'],
-        cssBundles: ['web/home/bundle.css${version}']
+        jsBundles: ['browser-polyfill.js', 'myapp/touch/reactlib.js', 'myapp/touch/common.js', 'myapp/touch/home/bundle.js${version}'],
+        cssBundles: ['myapp/touch/home/bundle.css${version}']
       },
       catalog: {
         match: /^\/(c|catalog)\/?/,
-        entry: './projects/web/app/catalog/index.js',
-        routes: './projects/web/app/catalog/routes.js',
-        jsBundles: ['browser-polyfill.js', 'web/reactlib.js', 'web/common.js', 'web/catalog/bundle.js${version}'],
-        cssBundles: ['web/catalog/bundle.css${version}']
+        entry: './projects/myapp/touch/app/catalog/index.js',
+        routes: './projects/myapp/touch/app/catalog/routes.js',
+        jsBundles: ['browser-polyfill.js', 'myapp/touch/reactlib.js', 'myapp/touch/common.js', 'myapp/touch/catalog/bundle.js${version}'],
+        cssBundles: ['myapp/touch/catalog/bundle.css${version}']
       },
       product: {
         match: /^\/(p|product)\/?/,
         entry: './projects/web/app/product/index.js',
         routes: './projects/web/app/product/routes.js',
-        jsBundles: ['browser-polyfill.js', 'web/reactlib.js', 'web/common.js', 'web/product/bundle.js${version}'],
-        cssBundles: ['web/product/bundle.css${version}']
+        jsBundles: ['browser-polyfill.js', 'myapp/touch/reactlib.js', 'myapp/touch/common.js', 'myapp/touch/product/bundle.js${version}'],
+        cssBundles: ['myapp/touch/product/bundle.css${version}']
       },
       user: {
         match: /^\/user\/?/,
         entry: './projects/web/app/user/index.js',
         routes: './projects/web/app/user/routes.js',
-        jsBundles: ['browser-polyfill.js', 'web/reactkits.js', 'web/common.js', 'web/user/bundle.js${version}'],
-        cssBundles: ['web/user/bundle.css${version}']
+        jsBundles: ['browser-polyfill.js', 'myapp/touch/reactkits.js', 'myapp/touch/common.js', 'myapp/touch/user/bundle.js${version}'],
+        cssBundles: ['myapp/touch/user/bundle.css${version}']
       }
     },
     admin: {
