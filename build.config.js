@@ -33,7 +33,9 @@ module.exports = {
     testp1: {
       // the project meta config.
       _metaInfo: {
-        version: ''
+        version: '',
+        // default projectName is `app`, we can override projectName via _metaInfo.projectName without prefix '/'
+        projectName: 'myapp/touch'
       },
       home: {
         // the project meta config.
@@ -43,14 +45,14 @@ module.exports = {
         match: /^\/testp1\/home(\/)?/,
         // entry point, must be string.
         entry: './projects/testp1/home/index.js',
-        jsBundles: ['http://localhost:4001/public/vendors/jquery/jquery.js${version}', 'testp1/home/bundle.js${version}'],
-        cssBundles: ['http://localhost:4001/public/common.css', 'testp1/home/bundle.css${version}']
+        jsBundles: ['http://localhost:4001/public/vendors/jquery/jquery.js${version}', 'myapp/touch/home/bundle.js${version}'],
+        cssBundles: ['http://localhost:4001/public/common.css', 'myapp/touch/home/bundle.css${version}']
       },
       catalog: {
         match: /^\/testp1\/catalog(\/)?/,
         entry: './projects/testp1/catalog/index.js',
-        jsBundles: ['http://localhost:4001/public/vendors/jquery/jquery.js${version}', 'testp1/catalog/bundle.js${version}'],
-        cssBundles: ['http://localhost:4001/public/common.css', 'testp1/catalog/bundle.css${version}']
+        jsBundles: ['http://localhost:4001/public/vendors/jquery/jquery.js${version}', 'myapp/touch/catalog/bundle.js${version}'],
+        cssBundles: ['http://localhost:4001/public/common.css', 'myapp/touch/catalog/bundle.css${version}']
       }
     },
     testp2: {
