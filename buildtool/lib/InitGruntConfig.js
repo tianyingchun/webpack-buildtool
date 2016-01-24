@@ -9,6 +9,7 @@ var default_config = projectInfo.config;
 
 // Reset the webpack build configuration.
 var resetWebpackConfig = function (grunt, webpack, projectName, projectMetaInfo) {
+
   // we can use project level _metaInfo to override default projectName
   // e.g.
   // projects: {
@@ -21,6 +22,7 @@ var resetWebpackConfig = function (grunt, webpack, projectName, projectMetaInfo)
   //   },
   //   ....
   var overrideProjectName = projectMetaInfo.projectName;
+
   var oExtractTextPlugin = _.find(webpack.plugins, function (item) {
     return 'ExtractTextPlugin' === item.constructor.name;
   });
@@ -95,7 +97,7 @@ var getWebpackConfig = function (grunt, mode, projects) {
       // current task.
       var subProject = project[subProjectName];
       if (subProject._metaInfo) {
-        projectMetaInfo =  _.extend(projectMetaInfo, subProject._metaInfo);
+        projectMetaInfo = _.extend(projectMetaInfo, subProject._metaInfo);
         delete subProject._metaInfo;
       }
       switch (mode) {
@@ -138,7 +140,6 @@ var getWebpackConfig = function (grunt, mode, projects) {
 // only for 'devServer', build all sub-project(sub-modules) one time.
 var getHotWebpackConfig = function (grunt, mode, projects) {
   var result = {};
-
   // The webpack dev server socket config for development phase.
   var dev_server_entry = [
     'webpack-dev-server/client?' + url.format({
@@ -205,7 +206,12 @@ var prepareWebpackConfig = function (grunt, mode, projectName, subProjectName, i
       grunt.fail.fatal('The project `' + project_path + '` can not be found build.config.js');
       return;
     }
-    buildProjects[projectName] = _.pick(buildProjects[projectName], [subProjectName]);
+    var buildProject = buildProjects[projectName];
+    buildProjects[projectName] = _.pick(buildProject, [subProjectName]);
+    // keep the _metaInfo in project level for all child sub module.
+    _.extend(buildProjects[projectName], {
+      _metaInfo: buildProject._metaInfo
+    });
   }
 
   if (isDevServer) {
